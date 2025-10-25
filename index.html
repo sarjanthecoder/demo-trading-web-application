@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradePro - Advanced Demo Trading Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Landing Page Styles */
+        .landing-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 80px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .features-section {
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            font-size: 16px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .landing-footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-description {
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #667eea;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+        }
+
+        .trading-app {
+            display: none;
+        }
+
+        .trading-app.active {
+            display: block;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 0 30px;
+        }
+
+        .nav-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #667eea;
+        }
+
+        .demo-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .balance-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 20px;
+            border-radius: 10px;
+        }
+
+        .balance-item {
+            text-align: center;
+        }
+
+        .balance-label {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-bottom: 3px;
+        }
+
+        .balance-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Main Trading Area */
+        .trading-container {
+            margin-top: 70px;
+            display: grid;
+            grid-template-columns: 250px 1fr 320px;
+            height: calc(100vh - 70px);
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            background: rgba(255, 255, 255, 0.03);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .asset-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .asset-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .asset-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .asset-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+        }
+
+        .asset-name {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .asset-price {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Chart Area */
+        .chart-area {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .chart-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .asset-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .current-price {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .price-change {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .price-change.up {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .price-change.down {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .timeframe-selector {
+            display: flex;
+            gap: 5px;
+        }
+
+        .timeframe-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timeframe-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timeframe-btn.active {
+            background: #667eea;
+        }
+
+        .chart-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Right Trading Panel */
+        .trading-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trading-controls {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .amount-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .amount-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .duration-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .duration-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .duration-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .duration-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .trade-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .trade-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #fff;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trade-btn .icon {
+            font-size: 32px;
+        }
+
+        .trade-btn.buy {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .trade-btn.buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5);
+        }
+
+        .trade-btn.sell {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+        }
+
+        .trade-btn.sell:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Active Trades */
+        .active-trades {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 40%;
+            overflow-y: auto;
+        }
+
+        .trades-header {
+            padding: 15px 20px;
+            font-weight: 700;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .trade-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trade-info {
+            flex: 1;
+        }
+
+        .trade-asset {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .trade-details {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .trade-pnl {
+            text-align: right;
+        }
+
+        .pnl-value {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .pnl-value.profit {
+            color: #10b981;
+        }
+
+        .pnl-value.loss {
+            color: #ef4444;
+        }
+
+        .trade-timer {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        /* Profit/Loss Popup */
+        .pnl-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(10, 14, 39, 0.98);
+            border: 3px solid;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            z-index: 2000;
+            min-width: 300px;
+            animation: popupShow 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .pnl-popup.profit {
+            border-color: #10b981;
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.5);
+        }
+
+        .pnl-popup.loss {
+            border-color: #ef4444;
+            box-shadow: 0 0 50px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes popupShow {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .pnl-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .pnl-amount {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .pnl-text {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .trading-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .sidebar, .trading-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo">📈 TradePro</div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link">Markets</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#stats" class="nav-link">Stats</a>
+                    <a href="#" class="nav-link" onclick="startTrading(event)">Start Trading</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Trade Like a Pro</h1>
+                <p class="hero-subtitle">
+                    Master the markets with our advanced demo trading platform. 
+                    Practice with $5,000 virtual capital, real-time charts, and professional tools.
+                </p>
+                <div class="hero-cta">
+                    <button class="cta-button cta-primary" onclick="startTrading(event)">
+                        Start Demo Trading
+                    </button>
+                    <button class="cta-button cta-secondary" onclick="scrollToFeatures()">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <div class="features-container">
+                <h2 class="section-title">Why Choose TradePro?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Real-Time Charts</h3>
+                        <p class="feature-description">
+                            Advanced candlestick charts with live price updates and multiple timeframes for detailed analysis.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">$5,000 Demo Account</h3>
+                        <p class="feature-description">
+                            Practice trading with virtual capital. No risk, real experience, unlimited learning potential.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Lightning Fast Execution</h3>
+                        <p class="feature-description">
+                            Execute trades instantly with our high-performance platform. Experience real trading conditions.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Multiple Markets</h3>
+                        <p class="feature-description">
+                            Trade crypto, forex, and stocks. Diversify your portfolio across different asset classes.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3 class="feature-title">Performance Tracking</h3>
+                        <p class="feature-description">
+                            Monitor your P/L in real-time. Track your trading performance and improve your strategy.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3 class="feature-title">Learn & Practice</h3>
+                        <p class="feature-description">
+                            Perfect for beginners and pros alike. Risk-free environment to test new strategies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section" id="stats">
+            <div class="section-title">Platform Statistics</div>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Active Traders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Trades Executed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Markets Available</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Market Access</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">📈 TradePro</div>
+                    <p class="footer-description">
+                        The most advanced demo trading platform for aspiring traders. 
+                        Practice, learn, and master the markets risk-free.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link" onclick="startTrading(event)">Start Trading</a>
+                        <a href="#features" class="footer-link">Features</a>
+                        <a href="#" class="footer-link">Markets</a>
+                        <a href="#" class="footer-link">Education</a>
+                    </div>
+                </div>
+               
+                </div>
+                <div class="footer-section">
+                   
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 TradePro. All rights reserved. developed by ❤️ sarjan p</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Trading Application -->
+    <div class="trading-app" id="tradingApp">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo" onclick="backToHome()" style="cursor: pointer;">📈 TradePro</div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link" onclick="backToHome()">Home</a>
+                    <a href="#" class="nav-link">Markets</a>
+                    <a href="#" class="nav-link">Trading</a>
+                    <a href="#" class="nav-link">Education</a>
+                    <span class="demo-badge">DEMO $5,000</span>
+                </div>
+                <div class="balance-display">
+                    <div class="balance-item">
+                        <div class="balance-label">Balance</div>
+                        <div class="balance-value" id="navBalance">$5,000</div>
+                    </div>
+                    <div class="balance-item">
+                        <div class="balance-label">P/L</div>
+                        <div class="balance-value" id="navProfit" style="color: #10b981;">$0</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Trading Container -->
+        <div class="trading-container">
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Assets</div>
+                    <div class="asset-list" id="assetList"></div>
+                </div>
+            </div>
+
+            <!-- Chart Area -->
+            <div class="chart-area">
+                <div class="chart-header">
+                    <div class="asset-info">
+                        <div class="current-price" id="currentPrice">$0.00</div>
+                        <div class="price-change up" id="priceChange">+0.00%</div>
+                    </div>
+                    <div class="timeframe-selector">
+                        <button class="timeframe-btn active">5s</button>
+                        <button class="timeframe-btn">15s</button>
+                        <button class="timeframe-btn">30s</button>
+                        <button class="timeframe-btn">1m</button>
+                    </div>
+                </div>
+                <div class="chart-container" id="chartContainer">
+                    <canvas id="priceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Right Trading Panel -->
+            <div class="trading-panel">
+                <div class="trading-controls">
+                    <div class="control-group">
+                        <label class="control-label">Amount</label>
+                        <div class="input-wrapper">
+                            <button class="amount-btn" onclick="adjustAmount(-10)">-</button>
+                            <input type="number" class="input-field" id="tradeAmount" value="70" min="10" step="10">
+                            <button class="amount-btn" onclick="adjustAmount(10)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Duration</label>
+                        <div class="duration-options">
+                            <button class="duration-btn active" onclick="setDuration(5)">5 sec</button>
+                            <button class="duration-btn" onclick="setDuration(15)">15 sec</button>
+                            <button class="duration-btn" onclick="setDuration(30)">30 sec</button>
+                            <button class="duration-btn" onclick="setDuration(60)">1 min</button>
+                            <button class="duration-btn" onclick="setDuration(300)">5 min</button>
+                            <button class="duration-btn" onclick="setDuration(900)">15 min</button>
+                        </div>
+                    </div>
+
+                    <div class="trade-buttons">
+                        <button class="trade-btn buy" onclick="placeTrade('buy')">
+                            <div class="icon">▲</div>
+                            <div>UP</div>
+                        </button>
+                        <button class="trade-btn sell" onclick="placeTrade('sell')">
+                            <div class="icon">▼</div>
+                            <div>DOWN</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="active-trades">
+                    <div class="trades-header">Active Trades (<span id="tradeCount">0</span>)</div>
+                    <div id="activeTradesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Functions
+        function startTrading(e) {
+            if (e) e.preventDefault();
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('tradingApp').classList.add('active');
+            setTimeout(() => {
+                setupChart();
+                updateChart();
+            }, 100);
+        }
+
+        function backToHome() {
+            document.getElementById('landingPage').style.display = 'flex';
+            document.getElementById('tradingApp').classList.remove('active');
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Trading Application Logic
+        let balance = 5000;
+        let totalPL = 0;
+        let positions = [];
+        let currentAsset = 'BTC/USD';
+        let candlesticks = [];
+        let currentCandle = null;
+        let tradeDuration = 5;
+        let chartWidth, chartHeight;
+
+        const assets = {
+            'BTC/USD': { base: 58360, volatility: 0.002, emoji: '₿' },
+            'ETH/USD': { base: 3200, volatility: 0.0025, emoji: '⟠' },
+            'EUR/USD': { base: 1.0836, volatility: 0.0001, emoji: '€' },
+            'GBP/USD': { base: 1.2650, volatility: 0.00012, emoji: '£' },
+            'AAPL': { base: 178.50, volatility: 0.0005, emoji: '🍎' },
+            'TSLA': { base: 242.80, volatility: 0.003, emoji: '⚡' }
+        };
+
+        function init() {
+            createAssetList();
+            startCandleUpdates();
+            updateDisplay();
+        }
+
+        function createAssetList() {
+            const list = document.getElementById('assetList');
+            Object.keys(assets).forEach(asset => {
+                const item = document.createElement('div');
+                item.className = 'asset-item' + (asset === currentAsset ? ' active' : '');
+                item.innerHTML = `
+                    <div>
+                        <div class="asset-name">${assets[asset].emoji} ${asset}</div>
+                    </div>
+                    <div class="asset-price" data-asset="${asset}">${assets[asset].base.toFixed(2)}</div>
+                `;
+                item.onclick = () => selectAsset(asset);
+                list.appendChild(item);
+            });
+        }
+
+        function selectAsset(asset) {
+            currentAsset = asset;
+            candlesticks = [];
+            currentCandle = null;
+            
+            document.querySelectorAll('.asset-item').forEach((item, i) => {
+                item.classList.toggle('active', Object.keys(assets)[i] === asset);
+            });
+            
+            updateChart();
+        }
+
+        function setupChart() {
+            const canvas = document.getElementById('priceChart');
+            const container = document.getElementById('chartContainer');
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+            chartWidth = canvas.width;
+            chartHeight = canvas.height;
+        }
+
+        function startCandleUpdates() {
+            // Update every 100ms (faster animation)
+            setInterval(() => {
+                updatePrices();
+                updateCandle();
+                updateChart();
+                updateActiveTrades();
+                updateDisplay();
+            }, 100);
+
+            // New candle every 2 seconds (faster candles)
+            setInterval(() => {
+                if (currentCandle) {
+                    candlesticks.push({...currentCandle});
+                    if (candlesticks.length > 30) candlesticks.shift();
+                }
+                startNewCandle();
+            }, 2000);
+
+            startNewCandle();
+        }
+
+        function updatePrices() {
+            Object.keys(assets).forEach(asset => {
+                const volatility = assets[asset].volatility;
+                const change = (Math.random() - 0.5) * 2 * assets[asset].base * volatility;
+                assets[asset].base += change;
+                
+                const priceEl = document.querySelector(`[data-asset="${asset}"]`);
+                if (priceEl) {
+                    priceEl.textContent = formatPrice(assets[asset].base, asset);
+                }
+            });
+        }
+
+        function startNewCandle() {
+            const price = assets[currentAsset].base;
+            currentCandle = {
+                open: price,
+                high: price,
+                low: price,
+                close: price,
+                time: Date.now()
+            };
+        }
+
+        function updateCandle() {
+            if (!currentCandle) return;
+            
+            const price = assets[currentAsset].base;
+            currentCandle.close = price;
+            currentCandle.high = Math.max(currentCandle.high, price);
+            currentCandle.low = Math.min(currentCandle.low, price);
+        }
+
+        function updateChart() {
+            const canvas = document.getElementById('priceChart');
+            if (!canvas || canvas.width === 0) return;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, chartWidth, chartHeight);
+
+            const allCandles = currentCandle ? [...candlesticks, currentCandle] : candlesticks;
+            if (allCandles.length === 0) return;
+
+            // Calculate price range with better padding
+            const allPrices = allCandles.flatMap(c => [c.high, c.low]);
+            const minPrice = Math.min(...allPrices);
+            const maxPrice = Math.max(...allPrices);
+            const priceRange = maxPrice - minPrice;
+            const padding = priceRange * 0.15;
+
+            // Better scaling
+            const chartPadding = 60;
+            const effectiveHeight = chartHeight - chartPadding;
+            
+            const priceToY = (price) => {
+                const normalized = (price - (minPrice - padding)) / (priceRange + 2 * padding);
+                return effectiveHeight - (normalized * effectiveHeight) + (chartPadding / 2);
+            };
+
+            // Draw grid and labels
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.font = '11px monospace';
+            ctx.textAlign = 'right';
+            
+            for (let i = 0; i <= 5; i++) {
+                const price = (minPrice - padding) + ((priceRange + 2 * padding) / 5) * i;
+                const y = priceToY(price);
+                
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(chartWidth - chartPadding, y);
+                ctx.stroke();
+                
+                ctx.fillText(formatPrice(price, currentAsset), chartWidth - 10, y + 4);
+            }
+
+            // Draw candlesticks with consistent sizing
+            const candleWidth = Math.min(20, Math.max(6, (chartWidth - chartPadding) / (allCandles.length + 2)));
+            const candleSpacing = candleWidth * 0.3;
+            const totalWidth = allCandles.length * (candleWidth + candleSpacing);
+            const startX = Math.max(10, (chartWidth - chartPadding - totalWidth) / 2);
+
+            allCandles.forEach((candle, i) => {
+                const x = startX + (i * (candleWidth + candleSpacing));
+                const isGreen = candle.close >= candle.open;
+                
+                // Calculate Y positions using the new function
+                const openY = priceToY(candle.open);
+                const closeY = priceToY(candle.close);
+                const highY = priceToY(candle.high);
+                const lowY = priceToY(candle.low);
+
+                // Draw wick
+                ctx.strokeStyle = isGreen ? '#10b981' : '#ef4444';
+                ctx.lineWidth = Math.max(1, candleWidth * 0.1);
+                ctx.beginPath();
+                ctx.moveTo(x + candleWidth / 2, highY);
+                ctx.lineTo(x + candleWidth / 2, lowY);
+                ctx.stroke();
+
+                // Draw body
+                ctx.fillStyle = isGreen ? '#10b981' : '#ef4444';
+                const bodyHeight = Math.max(2, Math.abs(closeY - openY));
+                const bodyY = Math.min(openY, closeY);
+                ctx.fillRect(x, bodyY, candleWidth, bodyHeight);
+
+                // Store positions for trade arrows
+                candle.chartX = x + candleWidth / 2;
+            });
+
+            // Draw trade arrows
+            positions.forEach(pos => {
+                if (pos.asset === currentAsset && pos.candleIndex !== undefined) {
+                    const candleIdx = pos.candleIndex;
+                    if (candleIdx >= 0 && candleIdx < allCandles.length) {
+                        const candle = allCandles[candleIdx];
+                        if (candle.chartX) {
+                            const priceY = priceToY(pos.entryPrice);
+
+                            ctx.font = 'bold 20px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            
+                            if (pos.type === 'buy') {
+                                ctx.fillStyle = '#10b981';
+                                ctx.shadowColor = '#10b981';
+                                ctx.shadowBlur = 10;
+                                ctx.fillText('▲', candle.chartX, priceY + 25);
+                            } else {
+                                ctx.fillStyle = '#ef4444';
+                                ctx.shadowColor = '#ef4444';
+                                ctx.shadowBlur = 10;
+                                ctx.fillText('▼', candle.chartX, priceY - 25);
+                            }
+                            ctx.shadowBlur = 0;
+                        }
+                    }
+                }
+            });
+        }
+
+        function adjustAmount(delta) {
+            const input = document.getElementById('tradeAmount');
+            let value = parseInt(input.value) + delta;
+            value = Math.max(10, Math.min(balance, value));
+            input.value = value;
+        }
+
+        function setDuration(seconds) {
+            tradeDuration = seconds;
+            document.querySelectorAll('.duration-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function placeTrade(type) {
+            const amount = parseInt(document.getElementById('tradeAmount').value);
+            
+            if (amount < 10) {
+                showNotification('Minimum trade amount is $10', 'error');
+                return;
+            }
+            
+            if (amount > balance) {
+                showNotification('Insufficient balance', 'error');
+                return;
+            }
+
+            balance -= amount;
+            
+            const position = {
+                id: Date.now(),
+                asset: currentAsset,
+                type: type,
+                amount: amount,
+                entryPrice: assets[currentAsset].base,
+                duration: tradeDuration,
+                startTime: Date.now(),
+                endTime: Date.now() + (tradeDuration * 1000),
+                candleIndex: candlesticks.length + (currentCandle ? 1 : 0) - 1
+            };
+            
+            positions.push(position);
+            updateActiveTrades();
+            updateDisplay();
+            
+            showNotification(`${type.toUpperCase()} trade opened - ${amount}`, 'success');
+        }
+
+        function updateActiveTrades() {
+            const now = Date.now();
+            const container = document.getElementById('activeTradesList');
+            
+            // Check for completed trades
+            positions.forEach(pos => {
+                if (now >= pos.endTime && !pos.completed) {
+                    pos.completed = true;
+                    closeTrade(pos);
+                }
+            });
+
+            // Remove completed trades after showing result
+            positions = positions.filter(pos => !pos.removed);
+
+            // Update display
+            if (positions.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; text-align: center; opacity: 0.5;">No active trades</div>';
+            } else {
+                container.innerHTML = positions.map(pos => {
+                    const timeLeft = Math.max(0, Math.ceil((pos.endTime - now) / 1000));
+                    const currentPrice = assets[pos.asset].base;
+                    const priceDiff = currentPrice - pos.entryPrice;
+                    const isWinning = (pos.type === 'buy' && priceDiff > 0) || (pos.type === 'sell' && priceDiff < 0);
+                    const potentialPL = isWinning ? pos.amount * 0.85 : -pos.amount;
+
+                    return `
+                        <div class="trade-item">
+                            <div class="trade-info">
+                                <div class="trade-asset">${assets[pos.asset].emoji} ${pos.asset} ${pos.type === 'buy' ? '▲' : '▼'}</div>
+                                <div class="trade-details">${pos.amount} • ${formatPrice(pos.entryPrice, pos.asset)}</div>
+                            </div>
+                            <div class="trade-pnl">
+                                <div class="pnl-value ${isWinning ? 'profit' : 'loss'}">
+                                    ${potentialPL >= 0 ? '+' : ''}${potentialPL.toFixed(2)}
+                                </div>
+                                <div class="trade-timer">${timeLeft}s</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            document.getElementById('tradeCount').textContent = positions.length;
+        }
+
+        function closeTrade(position) {
+            const finalPrice = assets[position.asset].base;
+            const priceDiff = finalPrice - position.entryPrice;
+            const isWin = (position.type === 'buy' && priceDiff > 0) || (position.type === 'sell' && priceDiff < 0);
+            
+            let payout = 0;
+            if (isWin) {
+                payout = position.amount * 1.85;
+                balance += payout;
+                totalPL += (payout - position.amount);
+            } else {
+                totalPL -= position.amount;
+            }
+
+            const pl = payout - position.amount;
+            showPnLPopup(pl, isWin);
+
+            setTimeout(() => {
+                position.removed = true;
+                updateActiveTrades();
+            }, 3000);
+
+            updateDisplay();
+        }
+
+        function showPnLPopup(amount, isProfit) {
+            const popup = document.createElement('div');
+            popup.className = `pnl-popup ${isProfit ? 'profit' : 'loss'}`;
+            popup.innerHTML = `
+                <div class="pnl-icon">${isProfit ? '🎉' : '😔'}</div>
+                <div class="pnl-amount" style="color: ${isProfit ? '#10b981' : '#ef4444'}">
+                    ${amount >= 0 ? '+' : ''}${amount.toFixed(2)}
+                </div>
+                <div class="pnl-text">${isProfit ? 'Trade Won!' : 'Trade Lost'}</div>
+            `;
+            document.body.appendChild(popup);
+
+            setTimeout(() => {
+                popup.style.animation = 'popupShow 0.3s reverse';
+                setTimeout(() => popup.remove(), 300);
+            }, 2500);
+        }
+
+        function updateDisplay() {
+            const currentPrice = assets[currentAsset].base;
+            document.getElementById('currentPrice').textContent = formatPrice(currentPrice, currentAsset);
+            
+            // Update price change
+            if (candlesticks.length > 0) {
+                const firstPrice = candlesticks[0].open;
+                const changePercent = ((currentPrice - firstPrice) / firstPrice) * 100;
+                const changeEl = document.getElementById('priceChange');
+                changeEl.textContent = `${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(2)}%`;
+                changeEl.className = `price-change ${changePercent >= 0 ? 'up' : 'down'}`;
+            }
+
+            // Update balance
+            document.getElementById('navBalance').textContent = `${balance.toFixed(0)}`;
+            document.getElementById('navProfit').textContent = `${totalPL >= 0 ? '+' : ''}${totalPL.toFixed(0)}`;
+            document.getElementById('navProfit').style.color = totalPL >= 0 ? '#10b981' : '#ef4444';
+        }
+
+        function formatPrice(price, asset) {
+            if (asset && (asset.includes('EUR') || asset.includes('GBP'))) {
+                return `${price.toFixed(5)}`;
+            }
+            if (price < 10) return `${price.toFixed(4)}`;
+            if (price < 1000) return `${price.toFixed(2)}`;
+            return `${price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (document.getElementById('tradingApp').classList.contains('active')) {
+                setupChart();
+                updateChart();
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>
