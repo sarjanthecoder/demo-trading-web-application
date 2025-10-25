@@ -5,7 +5,7 @@ Installation
 
 Clone the repository
 
-bashgit clone https://github.com/yourusername/tradepro.git
+bashgit clone [https://github.com/yourusername/tradepro.git](https://github.com/sarjanthecoder/demo-trading-web-application.git)
 cd tradepro
 
 Open in browser
